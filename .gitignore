@@ -15,3 +15,7 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# 审计脚本的本地缓存（只读体检工具的中间产物，不需要入库）
+.audit-cache.json
+.audit-promo.json
