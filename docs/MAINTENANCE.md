@@ -166,9 +166,24 @@ README 是面向用户的项目首页，只保留项目价值、安装入口、�
 ```bash
 python scripts/test_sync_readme_to_site.py
 python scripts/sync_readme_to_site.py --dry-run
+python scripts/test_juejin_safety.py
+node --test scripts/test_secure_temp.js
 npx --yes markdownlint-cli2 "**/*.md"
 git diff --check
 ```
+
+**关于 Python 运行环境**：Windows 上 `PATH` 里的 `python.exe` 可能只是
+Microsoft Store 的 0 字节占位程序，执行会失败或提示去商店安装。这不代表本机
+没有可用的 Python——DSH 等工具链会自带独立运行时，例如：
+
+```text
+%USERPROFILE%\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe
+```
+
+找不到解释器时，先确认实际路径再判断，**不要因为 `python` 命令不可用就跳过
+Python 测试**。Windows 控制台默认使用 GBK/CP936，脚本必须能在该编码下正常
+输出中文与 emoji（参见 `tests` 中的 GBK 回归用例）；仅在 Linux CI 通过不足以
+证明这一点，必要时应设置 `PYTHONIOENCODING=gbk` 复测。
 
 如果改了 README 中的 GitHub 链接，抽样或批量检查仓库是否可访问。外部非 GitHub 链接至少检查新增链接。
 
