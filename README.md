@@ -5,7 +5,7 @@
 [![Stars](https://img.shields.io/github/stars/laolaoshiren/claude-code-skills-zh?style=social)](https://github.com/laolaoshiren/claude-code-skills-zh)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-438%2B-green.svg)](#original-skills)
-[![Updated](https://img.shields.io/badge/updated-2026--10--19-brightgreen.svg)](https://github.com/laolaoshiren/claude-code-skills-zh/commits/main)
+[![Updated](https://img.shields.io/badge/updated-2026--10--20-brightgreen.svg)](https://github.com/laolaoshiren/claude-code-skills-zh/commits/main)
 [![Website](https://img.shields.io/badge/website-claude--skills.bt199.com-6c5ce7.svg)](https://claude-skills.bt199.com)
 
 **中文开发者最好的 Claude Code Skills 资源站。** 不只是列表，更包含可直接安装的原创技能包。
@@ -103,7 +103,6 @@ cp -r claude-code-skills-zh/skills/* ~/.claude/skills/
 | [ai-guide](https://github.com/liyupi/ai-guide) | 🇨🇳 程序员鱼皮 AI 资源大全：Claude Code / Cursor / DeepSeek 全攻略 | 21.3K+ |
 | [claude-skills](https://github.com/alirezarezvani/claude-skills) | 📦 232+ 技能包，支持 Claude Code / Codex / Gemini CLI / Cursor | 28.4K+ |
 | [notebooklm-py](https://github.com/teng-lin/notebooklm-py) | 📓 Google NotebookLM 非官方 Python API + Agent 技能 | 19.8K+ |
-| [Humanizer-zh](https://github.com/op7418/Humanizer-zh) | ✍️ Humanizer 中文版，消除中文 AI 写作痕迹 | 20K+ |
 | [superpowers](https://github.com/obra/superpowers) | 🦸 Agentic 技能框架与软件开发方法论 | 301.8K+ |
 | [anthropic-skills](https://github.com/anthropics/skills) | 🏛️ Anthropic 官方 Agent Skills 公开仓库 | 182.1K+ |
 | [gstack](https://github.com/garrytan/gstack) | 🧑‍💼 Garry Tan 的 Claude Code 全套配置：覆盖 CEO、设计、工程与 QA | 136.9K+ |
@@ -534,7 +533,7 @@ cp -r claude-code-skills-zh/skills/* ~/.claude/skills/
 | [tech-digest](https://github.com/camilleroux/tech-digest) | HN/Lobste.rs 每日科技摘要，评分过滤（37⭐） |
 | [MobiusQuant/OpenMobius-skill](https://github.com/MobiusQuant/OpenMobius-skill) | ICT/SMC 交易知识 Skill（706⭐）|
 | [ViryaZheng/recomby-geo](https://github.com/ViryaZheng/recomby-geo) | GEO 生成式引擎优化（459⭐）|
-| [duolahypercho/fusion-fable](https://github.com/duolahypercho/fusion-fable) | 双模型融合（470⭐）|
+| [duolahypercho/fusion-fable](https://github.com/duolahypercho/fusion-fable) | Claude Code 多模型融合 Skill：同一问题并行分发给多个前沿模型独立作答（彼此不可见，可各自联网与执行命令），再由 Opus 裁决共识、矛盾、盲区与独特观点后写出最终答案；机制是「先独立、后综合」，MIT 许可，需要可调用的多个模型与相应额度（470⭐）|
 | [ybuild-ai/ai-game-art-pipeline-skill](https://github.com/ybuild-ai/ai-game-art-pipeline-skill) | AI 图片→可玩游戏美术资产（301⭐）|
 | [Utopai-Research/pai-pro](https://github.com/Utopai-Research/pai-pro) | 本地 AI 电影制作工作室（346⭐）|
 | [gauss314/skills](https://github.com/gauss314/skills) | 📊 金融市场数据消费 Skills：面向 Claude Code 与 AI Agent 的金融数据接入能力（250⭐）|
@@ -554,10 +553,8 @@ cp -r claude-code-skills-zh/skills/* ~/.claude/skills/
 | [oil-frontend](https://github.com/oil-oil/oil-frontend) | 中文前端 Agent 规范 Skill：统一产品界面、数据状态、组件组织、样式归属和迁移验证，适合复杂中后台前端重构；采用显式启用策略，不处理纯构建、部署、安全或后端任务（135⭐）|
 | [Humanizer-zh](https://github.com/op7418/Humanizer-zh) | 消除中文 AI 写作痕迹（20K⭐）|
 | [shuorenhua](https://github.com/MrGeDiao/shuorenhua) | 中文优先的去 AI 味改写 Skill：按发布场景分档，先锁定事实再处理语气，支持 Claude Code / Codex / Cursor / OpenClaw；代码、日志、配置和命令输出不应套用该 Skill（2.2K⭐）|
-| [financial-report-minesweeper](https://github.com/terancejiang/financial-report-minesweeper) | A 股财报排雷（唐朝方法论）（433⭐）|
 | [web-access](https://github.com/eze-is/web-access) | 给 Claude Code 装上完整联网能力：三层通道调度 + 浏览器 CDP（9.2K⭐）|
 | [awesome-agent-skills](https://github.com/JackyST0/awesome-agent-skills) | 🇨🇳 精选 AI Agent Skills 列表，适配 Cursor / Claude Code / GitHub Copilot（652⭐）|
-| [wx-favorites-report](https://github.com/zhuyansen/wx-favorites-report) | 微信收藏可视化 Skill：从加密 DB 到交互式 HTML 报告的端到端管线（644⭐）|
 | [awesome-openclaw-skills-zh](https://github.com/Rito-w/awesome-openclaw-skills-zh) | OpenClaw Skills 中文翻译与分类目录：整理 5,494 个社区技能、30 个中文分类和安装说明，并明确提示安装前进行安全审查（67⭐）|
 | [luban-skill](https://github.com/LearnPrompt/luban-skill) | 🔧 鲁班 Agent Skill 打磨工作坊：把能用的 Skill 打磨成能被装、能传播、能验证、能进化的公共资产（960⭐）|
 | [compass-skills](https://github.com/dongshuyan/compass-skills) | 🧭 司南：个性化 AI 任务总控 Skills 系统，面向中文用户的 Agent 任务编排（758⭐）|
