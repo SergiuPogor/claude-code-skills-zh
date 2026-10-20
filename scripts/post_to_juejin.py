@@ -14,6 +14,21 @@ from datetime import datetime
 COOKIE_FILE = os.path.expanduser("~/.hermes/projects/claude-code-skills-zh/.juejin_cookie")
 
 
+def _configure_stdio() -> None:
+    """避免 Windows 控制台使用 GBK/CP936 时，打印 emoji 或中文抛出 UnicodeEncodeError。
+
+    与 scripts/sync_readme_to_site.py 的处理保持一致：无法编码的字符用替换符
+    输出，而不是让整个发布流程中断。
+    """
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is not None:
+            reconfigure(errors="replace")
+
+
+_configure_stdio()
+
+
 def load_cookie():
     """从环境变量或本地未跟踪文件读取 Cookie，避免把敏感信息提交到仓库。"""
     cookie = os.environ.get("JUEJIN_COOKIE")
