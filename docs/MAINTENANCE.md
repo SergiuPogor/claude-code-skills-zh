@@ -87,8 +87,20 @@
 **不要**仅以「停止更新」作为删除理由：高星成熟项目（如 10K+ star 的稳定工具）
 即使一年未推送，其资产仍然可用，应保留。
 
-体检脚本：`node scripts/audit_readme_entries.mjs`（元数据与失效条目）、
-`node scripts/audit_promotional_entries.mjs`（引流 / 低质信号）。两者均为只读工具。
+体检脚本（均为只读工具，会按批调用 GitHub GraphQL，带本地缓存并在中断后续传）：
+
+```bash
+# 元数据与失效条目：必须显式指定范围，避免误触发数百次请求
+node scripts/audit_readme_entries.mjs --limit 50        # 只查前 50 个未缓存仓库
+node scripts/audit_readme_entries.mjs --out audit.json  # 全量体检并写出结果
+
+# 引流 / 低质信号：同样必须显式指定范围
+node scripts/audit_promotional_entries.mjs --limit 30
+node scripts/audit_promotional_entries.mjs --all        # 全量抓取
+```
+
+不带范围参数时脚本会拒绝运行（退出码 2）并提示用法，`--help` 可查看完整说明。
+缓存文件 `.audit-cache.json`、`.audit-promo.json` 已加入 `.gitignore`。
 
 ## 候选验证流程
 

@@ -5,7 +5,12 @@
  * 用于判断哪些条目长期无人维护、低星、疑似失效。只读取，不修改任何文件。
  *
  * 用法：
- *   node scripts/audit_readme_entries.mjs [--out audit.json]
+ *   node scripts/audit_readme_entries.mjs --out audit.json   # 全量体检
+ *   node scripts/audit_readme_entries.mjs --limit 50         # 只查前 N 个未缓存仓库
+ *   node scripts/audit_readme_entries.mjs --help
+ *
+ * 注意：本脚本会按批调用 GitHub GraphQL（默认每批 25 个仓库）。全量运行前
+ * 需要显式带上 --out 或 --limit 或 --all，避免误触发数百次请求。
  */
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
@@ -19,8 +24,44 @@ const CACHE_PATH = join(REPO_ROOT, ".audit-cache.json");
 const CATEGORY_ORDER = ["star", "platform", "dev", "creative", "agent", "finance", "chinese"];
 
 const argv = process.argv.slice(2);
+const KNOWN_FLAGS = new Set(["--out", "--limit", "--all", "--help", "-h"]);
+const unknownFlags = argv.filter((a) => a.startsWith("-") && !KNOWN_FLAGS.has(a));
+if (unknownFlags.length > 0) {
+  console.error(`未知参数：${unknownFlags.join(", ")}`);
+  console.error("用 --help 查看用法。");
+  process.exit(2);
+}
+if (argv.includes("--help") || argv.includes("-h")) {
+  console.log(`用法：
+  node scripts/audit_readme_entries.mjs --out audit.json   # 全量体检并写出结果
+  node scripts/audit_readme_entries.mjs --limit 50         # 只查前 N 个未缓存仓库
+  node scripts/audit_readme_entries.mjs --all              # 全量体检（不写出文件）
+
+说明：
+  脚本会按批调用 GitHub GraphQL 接口读取仓库元数据，带本地缓存
+  （.audit-cache.json，已 gitignore），中断后重跑可续传。
+  为防误触发大量请求，全量运行必须显式带 --out / --limit / --all 之一。`);
+  process.exit(0);
+}
+
 const outIndex = argv.indexOf("--out");
 const OUT_PATH = outIndex >= 0 && argv[outIndex + 1] ? argv[outIndex + 1] : null;
+const limitIndex = argv.indexOf("--limit");
+const LIMIT = limitIndex >= 0 ? Number(argv[limitIndex + 1]) : Infinity;
+const RUN_ALL = argv.includes("--all");
+
+const hasScopeFlag = outIndex >= 0 || limitIndex >= 0 || RUN_ALL;
+if (!hasScopeFlag) {
+  console.error("拒绝运行：这会全量查询所有条目的 GitHub 元数据。");
+  console.error("请显式指定 --out <文件> 或 --limit <N> 或 --all，例如：");
+  console.error("  node scripts/audit_readme_entries.mjs --limit 20");
+  console.error("用 --help 查看完整用法。");
+  process.exit(2);
+}
+if (limitIndex >= 0 && (!Number.isInteger(LIMIT) || LIMIT <= 0)) {
+  console.error("--limit 需要一个正整数，例如 --limit 50");
+  process.exit(2);
+}
 
 function classifyHeader(line) {
   const t = line.trim();
@@ -135,8 +176,11 @@ function main() {
     }
   }
 
-  const pending = entries.map((e) => e.repo).filter((repo) => !(repo in cache));
-  console.log(`  待查询 ${pending.length} 个`);
+  const pending = entries
+    .map((e) => e.repo)
+    .filter((repo) => !(repo in cache))
+    .slice(0, Number.isFinite(LIMIT) ? LIMIT : undefined);
+  console.log(`  待查询 ${pending.length} 个${Number.isFinite(LIMIT) ? `（--limit ${LIMIT}）` : ""}`);
 
   const BATCH = 25;
   for (let i = 0; i < pending.length; i += BATCH) {

@@ -13,7 +13,12 @@
  * 只读取，不修改任何文件。结果写入 .audit-promo.json，人工复核后再决定处置。
  *
  * 用法：
- *   node scripts/audit_promotional_entries.mjs [--limit N]
+ *   node scripts/audit_promotional_entries.mjs --limit 30   # 只查前 N 个未缓存仓库
+ *   node scripts/audit_promotional_entries.mjs --all        # 全量抓取
+ *   node scripts/audit_promotional_entries.mjs --help
+ *
+ * 注意：本脚本会按批抓取每个仓库的文件树与 README 文本，请求体较大。
+ * 全量运行前必须显式带 --limit 或 --all，避免误触发数百次请求。
  */
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
@@ -47,6 +52,37 @@ const ASSET_PATTERNS = [
 const argv = process.argv.slice(2);
 const limitIdx = argv.indexOf("--limit");
 const LIMIT = limitIdx >= 0 ? Number(argv[limitIdx + 1]) : Infinity;
+
+const KNOWN_FLAGS = new Set(["--limit", "--all", "--help", "-h"]);
+const unknownFlags = argv.filter((a) => a.startsWith("-") && !KNOWN_FLAGS.has(a));
+if (unknownFlags.length > 0) {
+  console.error(`未知参数：${unknownFlags.join(", ")}`);
+  console.error("用 --help 查看用法。");
+  process.exit(2);
+}
+if (argv.includes("--help") || argv.includes("-h")) {
+  console.log(`用法：
+  node scripts/audit_promotional_entries.mjs --limit 30   # 只查前 N 个未缓存仓库
+  node scripts/audit_promotional_entries.mjs --all        # 全量抓取并分析
+
+说明：
+  逐个仓库抓取根文件树与 README 文本，检测「无资产 / 重度导流 / 空壳 /
+  无 README / 星数异常」等信号，结果缓存到 .audit-promo.json（已 gitignore）。
+  单一信号不足以判定，需人工复核。
+  为防误触发大量请求，必须显式带 --limit 或 --all。`);
+  process.exit(0);
+}
+if (limitIdx < 0 && !argv.includes("--all")) {
+  console.error("拒绝运行：这会全量抓取所有条目的仓库详情（请求体较大）。");
+  console.error("请显式指定 --limit <N> 或 --all，例如：");
+  console.error("  node scripts/audit_promotional_entries.mjs --limit 20");
+  console.error("用 --help 查看完整用法。");
+  process.exit(2);
+}
+if (limitIdx >= 0 && (!Number.isInteger(LIMIT) || LIMIT <= 0)) {
+  console.error("--limit 需要一个正整数，例如 --limit 30");
+  process.exit(2);
+}
 
 function classifyHeader(line) {
   const t = line.trim();
