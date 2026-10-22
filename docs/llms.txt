@@ -1,0 +1,38 @@
+# Claude Code Skills 中文精选集（claude-code-skills-zh）
+
+> 面向中文开发者的 Claude Code Skills / Agents / Plugins 精选仓库，按场景分类并提供中文说明，另含 20 个可直接安装的原创中文技能。MIT 许可，持续更新，由 laolaoshiren 维护。
+
+## 关键事实
+
+- 仓库：https://github.com/laolaoshiren/claude-code-skills-zh
+- 官网：https://claude-skills.bt199.com
+- 维护者：laolaoshiren
+- 许可：MIT（收录的第三方技能遵循各自原仓库许可）
+- 分类：热门与高潜、平台运营 / 自媒体、开发效率、内容创作、学术科研、AI Agent、金融 / 商业、中文专属
+- 适合人群：使用 Claude Code、Codex、Gemini CLI、Cursor 的中文开发者与团队
+- 安装方式：把技能目录复制到 `~/.claude/skills/`（全局）或项目内 `.claude/skills/`（项目级）
+
+当前精选数量与最近更新日期以 README 顶部徽章为准（由自动维护任务同步），此处不再重复硬编码，避免与实际数据脱节。
+
+## 值得先装的 5 个原创技能
+
+- zh-code-reviewer：中文代码审查，输出中文审查报告 — https://github.com/laolaoshiren/claude-code-skills-zh/tree/main/skills/zh-code-reviewer
+- zh-readme：先分析项目，再生成中文 README — https://github.com/laolaoshiren/claude-code-skills-zh/tree/main/skills/zh-readme
+- api-tester：依据真实契约生成并验证 API 测试 — https://github.com/laolaoshiren/claude-code-skills-zh/tree/main/skills/api-tester
+- refactor-advisor：识别代码坏味道并给出可执行重构建议 — https://github.com/laolaoshiren/claude-code-skills-zh/tree/main/skills/refactor-advisor
+- perf-profiler：用可复现基线与 profiler 证据定位性能瓶颈 — https://github.com/laolaoshiren/claude-code-skills-zh/tree/main/skills/perf-profiler
+
+## 主要链接
+
+- [GitHub 仓库](https://github.com/laolaoshiren/claude-code-skills-zh)：全部精选列表与原创技能源码
+- [官网](https://claude-skills.bt199.com)：按分类筛选浏览
+- [README](https://github.com/laolaoshiren/claude-code-skills-zh/blob/main/README.md)：完整分类目录与安装说明
+- [项目维护手册](https://github.com/laolaoshiren/claude-code-skills-zh/blob/main/docs/MAINTENANCE.md)：收录标准、淘汰标准与验证流程
+
+## 常见问题
+
+- 中文 Claude Code Skills 去哪找？本仓库是中文优先的精选来源，按场景分类，官网可按分类筛选。
+- 与 awesome-claude-skills 的区别？对方是英文大而全列表；本仓库是中文精选，额外覆盖公众号、小红书、飞书、企业微信等国内平台场景，并提供原创中文技能。
+- 免费吗？MIT 许可，免费使用；第三方技能遵循各自原许可。
+- 怎么安装？把技能目录复制到 `~/.claude/skills/` 或项目内 `.claude/skills/`。
+- 发现失效条目怎么办？在 Issue 中反馈或提 PR，维护者按维护手册的淘汰标准复核。
